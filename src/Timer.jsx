@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 
 import ProgressBar from '@ramonak/react-progress-bar'
 import PlayButton from './PlayButton'
@@ -11,12 +11,16 @@ import SettingsContext from './SettingsContext'
 
 function Timer() {
   const settingsInfo = useContext(SettingsContext)
+
+  const [isPaused, setIsPaused] = useState(false)
+
+  useEffect(() => {}, [settingsInfo])
+
   return (
     <div>
       <ProgressBar completed={60} />
       <div style={{ marginTop: '20px' }}>
-        <PlayButton />
-        <PauseButton />
+        {isPaused ? <PlayButton /> : <PauseButton />}
       </div>
       <div style={{ marginTop: '20px' }}>
         <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />

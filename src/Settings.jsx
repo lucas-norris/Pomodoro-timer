@@ -8,7 +8,7 @@ function Settings() {
 
   return (
     <div style={{ textAlign: 'left' }}>
-      <label>work minutes: {settingsInfo.workMinutes}:00</label>
+      <label>work: {settingsInfo.workMinutes}:00</label>
       <ReactSlider
         className={'slider'}
         thumbClassName={'thumb'}
@@ -17,7 +17,7 @@ function Settings() {
         min={1}
         max={120}
       />
-      <label>break minutes: {settingsInfo.breakMinutes}:00</label>
+      <label>break: {settingsInfo.breakMinutes}:00</label>
       <ReactSlider
         className={'slider green'}
         thumbClassName={'thumb'}

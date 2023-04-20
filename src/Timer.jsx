@@ -12,7 +12,7 @@ import SettingsContext from './SettingsContext'
 function Timer() {
   const settingsInfo = useContext(SettingsContext)
 
-  const [isPaused, setIsPaused] = useState(false)
+  const [isPaused, setIsPaused] = useState(true)
   const [mode, setMode] = useState('work') // ['work', 'break'
   const [secondsCountdown, setSecondsCountdown] = useState(0)
 
@@ -70,9 +70,24 @@ function Timer() {
       <ProgressBar
         completed={percentage}
         customLabel={minutes + ':' + seconds}
+        bgColor={mode === 'work' ? 'red' : 'green'}
       />
       <div style={{ marginTop: '20px' }}>
-        {isPaused ? <PlayButton /> : <PauseButton />}
+        {isPaused ? (
+          <PlayButton
+            onClick={() => {
+              setIsPaused(false)
+              isPausedRef.current = false
+            }}
+          />
+        ) : (
+          <PauseButton
+            onClick={() => {
+              setIsPaused(true)
+              isPausedRef.current = true
+            }}
+          />
+        )}
       </div>
       <div style={{ marginTop: '20px' }}>
         <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />

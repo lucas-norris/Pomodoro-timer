@@ -40,12 +40,25 @@ function Timer() {
         }
       }
     }, 1000)
-    return clearInterval(interval)
+    return () => clearInterval(interval)
   }, [settingsInfo])
+
+  const totalSeconds =
+    mode === 'work'
+      ? settingsInfo.workMinutes * 60
+      : settingsInfo.breakMinutes * 60
+  const percentage = (secondsCountdown / totalSeconds) * 100
+
+  const minutes = Math.floor(secondsCountdown / 60)
+  let seconds = secondsCountdown % 60
+  if (seconds < 10) seconds = '0' + seconds
 
   return (
     <div>
-      <ProgressBar completed={60} />
+      <ProgressBar
+        completed={percentage}
+        customLabel={minutes + ':' + seconds}
+      />
       <div style={{ marginTop: '20px' }}>
         {isPaused ? <PlayButton /> : <PauseButton />}
       </div>

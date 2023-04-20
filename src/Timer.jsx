@@ -24,21 +24,33 @@ function Timer() {
     setSecondsCountdown(settingsInfo.workMinutes * 60)
   }
 
+  function switchMode() {
+    const nextMode = modeRef.current === 'work' ? 'break' : 'work'
+    const nextSecondsCountdown =
+      (nextMode === 'work'
+        ? settingsInfo.workMinutes
+        : settingsInfo.breakMinutes) * 60
+    modeRef.current = nextMode
+    setMode(nextMode)
+
+    secondsCountdownRef.current = nextSecondsCountdown
+    setSecondsCountdown(nextSecondsCountdown)
+  }
+
+  function tick() {
+    secondsCountdownRef.current--
+    setSecondsCountdown(secondsCountdownRef.current)
+  }
+
   useEffect(() => {
     initTimer()
 
     const interval = setInterval(() => {
-      if (!isPausedRef.current) {
-        setSecondsCountdown(secondsCountdownRef.current - 1)
-      } else if (secondsCountdownRef.current === 0) {
-        if (modeRef.current === 'work') {
-          setMode('break')
-          setSecondsCountdown(settingsInfo.breakMinutes * 60)
-        } else {
-          setMode('work')
-          setSecondsCountdown(settingsInfo.workMinutes * 60)
-        }
+      if (isPausedRef.current) return
+      if (secondsCountdownRef.current === 0) {
+        return switchMode()
       }
+      tick()
     }, 1000)
     return () => clearInterval(interval)
   }, [settingsInfo])

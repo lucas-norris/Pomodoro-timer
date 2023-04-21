@@ -13,7 +13,7 @@ function Timer() {
   const settingsInfo = useContext(SettingsContext)
 
   const [isPaused, setIsPaused] = useState(true)
-  const [mode, setMode] = useState('work') // ['work', 'break'
+  const [mode, setMode] = useState('work')
   const [secondsCountdown, setSecondsCountdown] = useState(0)
 
   const secondsCountdownRef = useRef(secondsCountdown)
@@ -24,19 +24,6 @@ function Timer() {
     setSecondsCountdown(settingsInfo.workMinutes * 60)
   }
 
-  function switchMode() {
-    const nextMode = modeRef.current === 'work' ? 'break' : 'work'
-    const nextSecondsCountdown =
-      (nextMode === 'work'
-        ? settingsInfo.workMinutes
-        : settingsInfo.breakMinutes) * 60
-    modeRef.current = nextMode
-    setMode(nextMode)
-
-    secondsCountdownRef.current = nextSecondsCountdown
-    setSecondsCountdown(nextSecondsCountdown)
-  }
-
   function tick() {
     secondsCountdownRef.current--
     setSecondsCountdown(secondsCountdownRef.current)
@@ -44,6 +31,23 @@ function Timer() {
 
   useEffect(() => {
     initTimer()
+
+    function switchMode() {
+      const nextMode = modeRef.current === 'work' ? 'break' : 'work'
+      const nextSecondsCountdown =
+        (nextMode === 'work'
+          ? settingsInfo.workMinutes
+          : settingsInfo.breakMinutes) * 60
+
+      setMode(nextMode)
+      modeRef.current = nextMode
+
+      setSecondsCountdown(nextSecondsCountdown)
+      secondsCountdownRef.current = nextSecondsCountdown
+
+      secondsCountdownRef.current = settingsInfo.workMinutes * 60
+      setSecondsCountdown(secondsCountdownRef.current)
+    }
 
     const interval = setInterval(() => {
       if (isPausedRef.current) return
@@ -59,11 +63,14 @@ function Timer() {
     mode === 'work'
       ? settingsInfo.workMinutes * 60
       : settingsInfo.breakMinutes * 60
-  const percentage = (secondsCountdown / totalSeconds) * 100
+
+  const percentage = Math.round((secondsCountdown / totalSeconds) * 100)
 
   const minutes = Math.floor(secondsCountdown / 60)
   let seconds = secondsCountdown % 60
-  if (seconds < 10) seconds = '0' + seconds
+  if (seconds < 10) {
+    seconds = '0' + seconds
+  }
 
   return (
     <div>

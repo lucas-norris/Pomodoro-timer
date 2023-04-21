@@ -44,10 +44,10 @@ function Timer() {
 
       setSecondsCountdown(nextSecondsCountdown)
       secondsCountdownRef.current = nextSecondsCountdown
-
-      secondsCountdownRef.current = settingsInfo.workMinutes * 60
-      setSecondsCountdown(secondsCountdownRef.current)
     }
+
+    secondsCountdownRef.current = settingsInfo.workMinutes * 60
+    setSecondsCountdown(secondsCountdownRef.current)
 
     const interval = setInterval(() => {
       if (isPausedRef.current) return

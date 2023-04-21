@@ -76,33 +76,38 @@ function Timer() {
   }
 
   return (
-    <div>
-      <ProgressBar
-        completed={percentage}
-        customLabel={minutes + ':' + seconds}
-        bgColor={mode === 'work' ? 'red' : 'green'}
-      />
-      <div style={{ marginTop: '20px' }}>
-        {isPaused ? (
-          <PlayButton
-            onClick={() => {
-              setIsPaused(false)
-              isPausedRef.current = false
-            }}
-          />
-        ) : (
-          <PauseButton
-            onClick={() => {
-              setIsPaused(true)
-              isPausedRef.current = true
-            }}
-          />
-        )}
+    <>
+      <div>
+        <h2>{mode === 'work' ? 'Work' : 'Break'}</h2>
       </div>
-      <div style={{ marginTop: '20px' }}>
-        <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
+      <div>
+        <ProgressBar
+          completed={percentage}
+          customLabel={minutes + ':' + seconds}
+          bgColor={mode === 'work' ? 'red' : 'green'}
+        />
+        <div style={{ marginTop: '20px' }}>
+          {isPaused ? (
+            <PlayButton
+              onClick={() => {
+                setIsPaused(false)
+                isPausedRef.current = false
+              }}
+            />
+          ) : (
+            <PauseButton
+              onClick={() => {
+                setIsPaused(true)
+                isPausedRef.current = true
+              }}
+            />
+          )}
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

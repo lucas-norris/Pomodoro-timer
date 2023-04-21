@@ -8,6 +8,7 @@ function App() {
   const [showSettings, setShowSettings] = useState(false)
   const [workMinutes, setWorkMinutes] = useState(45)
   const [breakMinutes, setBreakMinutes] = useState(15)
+  const [title, setTitle] = useState('Pomodoro Timer')
 
   return (
     <main>
@@ -21,6 +22,7 @@ function App() {
           setBreakMinutes,
         }}
       >
+        <h1>{!showSettings ? title : 'Settings'}</h1>
         {showSettings ? <Settings /> : <Timer />}
       </SettingsContext.Provider>
     </main>

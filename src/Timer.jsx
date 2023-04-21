@@ -44,6 +44,9 @@ function Timer() {
 
       setSecondsCountdown(nextSecondsCountdown)
       secondsCountdownRef.current = nextSecondsCountdown
+
+      setIsPaused(true)
+      isPausedRef.current = true
     }
 
     secondsCountdownRef.current = settingsInfo.workMinutes * 60

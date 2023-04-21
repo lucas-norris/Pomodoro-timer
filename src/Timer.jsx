@@ -1,10 +1,12 @@
 import { useContext, useState, useEffect, useRef } from 'react'
+import useSound from 'use-sound'
 
 import ProgressBar from '@ramonak/react-progress-bar'
 import PlayButton from './PlayButton'
 import PauseButton from './PauseButton'
 import SettingsButton from './SettingsButton'
 import SettingsContext from './SettingsContext'
+import ringtone from './assets/ringtone.mp3'
 
 // const red = '#f54e4e'
 // const green = '#4aec8c'
@@ -15,6 +17,7 @@ function Timer() {
   const [isPaused, setIsPaused] = useState(true)
   const [mode, setMode] = useState('work')
   const [secondsCountdown, setSecondsCountdown] = useState(0)
+  const [play] = useSound(ringtone)
 
   const secondsCountdownRef = useRef(secondsCountdown)
   const isPausedRef = useRef(isPaused)
@@ -33,6 +36,8 @@ function Timer() {
     initTimer()
 
     function switchMode() {
+      play()
+
       const nextMode = modeRef.current === 'work' ? 'break' : 'work'
       const nextSecondsCountdown =
         (nextMode === 'work'

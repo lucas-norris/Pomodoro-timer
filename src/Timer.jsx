@@ -7,6 +7,7 @@ import PauseButton from './PauseButton'
 import SettingsButton from './SettingsButton'
 import SettingsContext from './SettingsContext'
 import ringtone from './assets/ringtone.mp3'
+import ResetButton from './ResetButton'
 
 // const red = '#f54e4e'
 // const green = '#4aec8c'
@@ -23,18 +24,12 @@ function Timer() {
   const isPausedRef = useRef(isPaused)
   const modeRef = useRef(mode)
 
-  function initTimer() {
-    setSecondsCountdown(settingsInfo.workMinutes * 60)
-  }
-
   function tick() {
     secondsCountdownRef.current--
     setSecondsCountdown(secondsCountdownRef.current)
   }
 
   useEffect(() => {
-    initTimer()
-
     function switchMode() {
       play()
 
@@ -91,7 +86,13 @@ function Timer() {
           customLabel={minutes + ':' + seconds}
           bgColor={mode === 'work' ? 'red' : 'green'}
         />
-        <div style={{ marginTop: '20px' }}>
+        <div
+          style={{
+            marginTop: '20px',
+            marginRight: '5px',
+            display: 'inline-block',
+          }}
+        >
           {isPaused ? (
             <PlayButton
               onClick={() => {
@@ -107,6 +108,17 @@ function Timer() {
               }}
             />
           )}
+        </div>
+        <div style={{ display: 'inline-block' }}>
+          <ResetButton
+            //create onClick function to reset timer based on mode
+
+            onClick={() =>
+              mode === 'work'
+                ? setSecondsCountdown(settingsInfo.workMinutes * 60)
+                : setSecondsCountdown(settingsInfo.breakMinutes * 60)
+            }
+          />
         </div>
         <div style={{ marginTop: '20px' }}>
           <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />

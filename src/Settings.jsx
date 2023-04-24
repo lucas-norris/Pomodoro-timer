@@ -39,19 +39,35 @@ function Settings() {
         min={1}
         max={120}
       />
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <BackButton
-          onClick={() => {
-            settingsInfo.setShowSettings(false)
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: '20px',
+        }}
+      >
+        <div
+          style={{
+            display: 'inline-block',
+            marginRight: '20px',
           }}
-        />
-      </div>
-      <div>
-        {settingsInfo.theme === 'dark' ? (
-          <LightButton onClick={toggleTheme} />
-        ) : (
-          <DarkButton onClick={toggleTheme} />
-        )}
+        >
+          <BackButton
+            onClick={() => {
+              settingsInfo.setShowSettings(false)
+            }}
+          />
+        </div>
+        <div
+          style={{
+            display: 'inline-block',
+          }}
+        >
+          {settingsInfo.theme === 'dark' ? (
+            <LightButton onClick={toggleTheme} />
+          ) : (
+            <DarkButton onClick={toggleTheme} />
+          )}
+        </div>
       </div>
     </div>
   )

@@ -9,6 +9,7 @@ function App() {
   const [workMinutes, setWorkMinutes] = useState(25)
   const [breakMinutes, setBreakMinutes] = useState(5)
   const [title, setTitle] = useState('Pomodoro Timer')
+  const [theme, setTheme] = useState('dark')
 
   return (
     <main>
@@ -20,6 +21,8 @@ function App() {
           breakMinutes,
           setWorkMinutes,
           setBreakMinutes,
+          theme,
+          setTheme,
         }}
       >
         <h1>{!showSettings ? title : 'Settings'}</h1>

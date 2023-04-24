@@ -1,11 +1,22 @@
 import ReactSlider from 'react-slider'
 import './slider.css'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import SettingsContext from './SettingsContext'
 import BackButton from './BackButton'
 
 function Settings() {
   const settingsInfo = useContext(SettingsContext)
+
+  const toggleTheme = () => {
+    if (settingsInfo.theme === 'dark') {
+      settingsInfo.setTheme('light')
+    } else {
+      settingsInfo.setTheme('dark')
+    }
+  }
+  useEffect(() => {
+    document.body.className = settingsInfo.theme
+  }, [settingsInfo.theme])
 
   return (
     <div style={{ textAlign: 'left' }}>

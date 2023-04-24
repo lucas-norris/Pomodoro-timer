@@ -3,9 +3,19 @@
   --green: #4aec8c
 }
 
-body {
+/* body {
   background-color: #30384b;
   color: #eee;
+} */
+
+.dark {
+  background-color: #30384b;
+  color: #eee;
+}
+
+.light {
+  background-color: #eee;
+  color: #30384b;
 }
 
 main{

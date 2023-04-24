@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Timer from './Timer'
 import Settings from './Settings'
@@ -10,6 +10,10 @@ function App() {
   const [breakMinutes, setBreakMinutes] = useState(5)
   const [title, setTitle] = useState('Pomodoro Timer')
   const [theme, setTheme] = useState('dark')
+
+  useEffect(() => {
+    document.body.className = theme
+  }, [theme])
 
   return (
     <main>

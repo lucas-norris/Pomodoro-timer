@@ -1,8 +1,10 @@
 import ReactSlider from 'react-slider'
 import './slider.css'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import SettingsContext from './SettingsContext'
 import BackButton from './BackButton'
+import LightButton from './LightButton'
+import DarkButton from './DarkButton'
 
 function Settings() {
   const settingsInfo = useContext(SettingsContext)
@@ -14,9 +16,6 @@ function Settings() {
       settingsInfo.setTheme('dark')
     }
   }
-  useEffect(() => {
-    document.body.className = settingsInfo.theme
-  }, [settingsInfo.theme])
 
   return (
     <div style={{ textAlign: 'left' }}>
@@ -46,6 +45,13 @@ function Settings() {
             settingsInfo.setShowSettings(false)
           }}
         />
+      </div>
+      <div>
+        {settingsInfo.theme === 'dark' ? (
+          <LightButton onClick={toggleTheme} />
+        ) : (
+          <DarkButton onClick={toggleTheme} />
+        )}
       </div>
     </div>
   )
